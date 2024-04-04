@@ -5,6 +5,7 @@ import { db } from '@/firebase'
 import AlertComponent from '@/components/AlertComponent.vue'
 import { useRouter } from 'vue-router'
 import { useCookies } from '@vueuse/integrations/useCookies'
+
 const user = ref({
   email: '',
   password: ''
@@ -15,6 +16,11 @@ const msg = ref('')
 const router = useRouter()
 const { get, set } = useCookies(['auth'])
 
+/**
+ * Hàm đăng nhập vào trang quản trị.
+ *
+ * @return {Promise<void>} một promise khi admin đã đăng nhập thành công.
+ */
 const loginAdmin = async () => {
   const q = query(collection(db, 'users'), where('email', '==', user.value.email))
   const querySnapshot = await getDocs(q)
@@ -35,6 +41,7 @@ const loginAdmin = async () => {
     })
   }
 }
+
 watchEffect(() => {
   if (get('user')) {
     if (get('user').role !== 'ADMIN') {
@@ -63,7 +70,7 @@ watchEffect(() => {
             name=""
             id="email"
             aria-describedby="Email"
-            placeholder="abc@mail.com"
+            placeholder="test@test.com"
             v-model="user.email"
           />
         </div>
@@ -76,7 +83,7 @@ watchEffect(() => {
             class="form-control"
             name=""
             id="password"
-            placeholder=""
+            placeholder="123123"
             v-model="user.password"
           />
         </div>

@@ -1,9 +1,11 @@
-<script setup></script>
+<script setup>
+import { AdminLayout } from '@/layout'
+</script>
 
 <template>
-  <div>
+  <AdminLayout>
     <h1>DashboardView</h1>
-  </div>
+  </AdminLayout>
 </template>
 
 <style scoped></style>
