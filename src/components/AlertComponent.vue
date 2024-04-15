@@ -1,14 +1,12 @@
 <script setup>
-defineProps({
-  msg: String,
-  type: String,
-  show: Boolean
-})
+import { inject } from 'vue'
+
+const alert = inject('alert')
 </script>
 
 <template>
-  <div v-if="show" :class="`alert alert-${type} alert-dismissible`" role="alert">
-    <div>{{ msg }}</div>
+  <div v-if="alert.show" :class="`alert alert-${alert.type} alert-dismissible`" role="alert">
+    <div>{{ alert.msg }}</div>
   </div>
 </template>
 

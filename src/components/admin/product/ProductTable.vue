@@ -1,32 +1,99 @@
 <script setup>
+import { ref, toRaw, provide } from 'vue'
+import { AddProduct, DeleteProduct, EditProduct } from '@/components'
+import { useDeleteData } from '@/composable'
 defineProps({
-  data: Array
+  data: {
+    type: Array,
+    default() {
+      return []
+    }
+  }
 })
+const alert = ref({
+  msg: '',
+  type: '',
+  show: false
+})
+const loading = ref(false)
+const checkedRows = ref([])
+provide('alert', alert)
+const deleteProduct = async () => {
+  loading.value = true
+  try {
+    await useDeleteData('products', toRaw(checkedRows.value))
+    alert.value.msg = 'Xóa thành công'
+    alert.value.type = 'success'
+    alert.value.show = 'show'
+    loading.value = false
+  } catch (error) {
+    alert.value.msg = error.message
+    alert.value.type = 'danger'
+    alert.value.show = 'show'
+    loading.value = false
+  }
+}
 </script>
 
 <template>
-  <div class="table-responsive w-100">
-    <table class="table-primary table-striped table-hover w-100">
-      <thead>
-        <tr>
-          <th scope="col">Column 1</th>
-          <th scope="col">Column 2</th>
-          <th scope="col">Column 3</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="">
-          <td scope="row">R1C1</td>
-          <td>R1C2</td>
-          <td>R1C3</td>
-        </tr>
-        <tr class="">
-          <td scope="row">Item</td>
-          <td>Item</td>
-          <td>Item</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="">
+    <div class="d-flex gap-2">
+      <AddProduct />
+      <DeleteProduct
+        @delete="deleteProduct"
+        :loading="loading"
+        :data="checkedRows"
+        :index="checkedRows.length"
+      />
+    </div>
+    <div v-if="data.length <= 0" class="text-center">Không tìm thấy dữ liệu nào</div>
+    <div v-else class="table-responsive">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Tên sản phẩm</th>
+            <th scope="col">Hãng</th>
+            <th scope="col">Mô tả</th>
+            <th scope="col">Giá</th>
+            <th scope="col">Số lượng</th>
+            <th scope="col">Ảnh</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(product, index) in data" :key="index">
+            <td scope="row">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  aria-label="Checkbox for delete object"
+                  :checked="checkedRows.includes(product.id)"
+                  :value="product.id"
+                  v-model="checkedRows"
+                />
+              </div>
+            </td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.brand }}</td>
+            <td>{{ product.desc }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.quantity }}</td>
+            <td>
+              <img
+                :src="product.imageUrl"
+                alt="day la anh san pham"
+                class="rounded"
+                width="100"
+                height="100"
+              />
+            </td>
+            <td><EditProduct :data="product" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 

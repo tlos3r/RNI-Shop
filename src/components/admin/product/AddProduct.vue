@@ -1,10 +1,19 @@
 <script setup>
-import { ref } from 'vue'
-import { db } from '@/firebase'
-import { doc, setDoc } from 'firebase/firestore'
-import { useStorage } from '@vueuse/core'
+import { ref, provide } from 'vue'
+import { useAddData } from '@/composable/addData'
+import { Icon } from '@iconify/vue'
+import { AlertComponent } from '@/components'
+import { ref as refFirebase, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
+import { storage } from '@/firebase'
+import { Timestamp } from 'firebase/firestore'
 
-const product = useStorage('product', {
+const alert = ref({
+  msg: '',
+  type: '',
+  show: false
+})
+provide('alert', alert)
+const product = ref({
   name: '',
   brand: '',
   imageUrl: '',
@@ -26,105 +35,217 @@ const laundryDetergentBrands = [
   'Foca'
 ]
 const loading = ref(false)
+const progress = ref(0)
+
 const addProduct = async () => {
-  await setDoc(doc(db, 'products'), product.value)
+  loading.value = true
+  const { docRef } = await useAddData('products', {
+    ...product.value,
+    createdAt: Timestamp.now().toDate()
+  })
+  if (docRef) {
+    loading.value = false
+    alert.value.msg = 'Thêm sản phẩm thành công !'
+    alert.value.type = 'success'
+    alert.value.show = true
+    progress.value = 0
+    ;(product.value.name = ''),
+      (product.value.brand = ''),
+      (product.value.imageUrl = ''),
+      (product.value.desc = ''),
+      (product.value.price = 0),
+      (product.value.boughtCount = 0),
+      (product.value.quantity = 0)
+  }
+}
+
+const handleImageChange = (e) => {
+  // get file
+  const file = e.target.files[0]
+
+  const storageRef = refFirebase(storage, `images/${Date.now()}${file.name}`)
+  const uploadTask = uploadBytesResumable(storageRef, file)
+  uploadTask.on(
+    'state_changed',
+    (snapshot) => {
+      const progressNumber = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+      progress.value = progressNumber
+    },
+    (error) => {
+      ;(alert.value.msg = error.message), (alert.value.type = 'danger'), (alert.value.show = true)
+    },
+    () => {
+      getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+        product.value.imageUrl = downloadURL
+        ;(alert.value.msg = ''), (alert.value.type = ''), (alert.value.show = false)
+      })
+    }
+  )
 }
 </script>
 
 <template>
-  <!-- Button trigger modal -->
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addproduct">
-    Launch demo modal
-  </button>
+  <div class="">
+    <!-- Button trigger modal -->
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#addproduct"
+    >
+      <Icon icon="icons8:plus" width="1.5em" height="1.5em" style="color: white" />
+      Thêm
+    </button>
 
-  <!-- Modal -->
-  <div
-    class="modal fade"
-    id="addproduct"
-    tabindex="-1"
-    aria-labelledby="addproductLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm sản phẩm</h1>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <form @submit.prevent="addProduct">
-          <div class="modal-body">
-            <div class="mb-3">
-              <label for="name" class="form-label">Tên sản phẩm</label>
-              <input
-                type="text"
-                name="name"
-                id="name"
-                class="form-control"
-                placeholder="nước giặt omo"
-                aria-describedby="nameId"
-                v-model="product.name"
-              />
-            </div>
-            <div class="mb-3">
-              <label for="brand" class="form-label">Hãng</label>
-              <select class="form-select form-select-sm mb-3" aria-label="Large select example">
-                <option selected disabled>Hãng thuộc về sản phẩm này</option>
-                <option
-                  v-for="(brand, index) in laundryDetergentBrands"
-                  :key="index"
-                  :value="brand"
+    <!-- Modal -->
+
+    <div
+      class="modal fade"
+      id="addproduct"
+      tabindex="-1"
+      aria-labelledby="addproductLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm sản phẩm</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <form @submit.prevent="addProduct">
+            <div class="modal-body">
+              <AlertComponent :msg="alert.msg" :type="alert.type" :show="alert.show" />
+              <div class="mb-3">
+                <label for="name" class="form-label">Tên sản phẩm</label>
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  class="form-control"
+                  placeholder="nước giặt omo"
+                  aria-describedby="nameId"
+                  v-model="product.name"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="brand" class="form-label">Hãng</label>
+                <select
+                  class="form-select form-select-sm mb-3"
+                  aria-label="Large select example"
+                  v-model="product.brand"
                 >
-                  {{ brand }}
-                </option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="desc" class="form-label">Mô tả</label>
-              <textarea class="form-control" name="desc" id="desc" rows="3"></textarea>
-            </div>
-            <div class="mb-3">
-              <label for="imageUrl" class="form-label">Chọn ảnh</label>
-              <input
-                type="file"
-                class="form-control"
-                name="imageUrl"
-                id="imageUrl"
-                placeholder=""
-                aria-describedby="fileHelpId"
-              />
-              <div id="fileHelpId" class="form-text">Lưu ý ảnh không quá 20Mb</div>
-              <div
-                class="progress"
-                role="progressbar"
-                aria-label="Animated striped example"
-                aria-valuenow="75"
-                aria-valuemin="0"
-                aria-valuemax="100"
-              >
+                  <option selected disabled>Hãng thuộc về sản phẩm này</option>
+                  <option
+                    v-for="(brand, index) in laundryDetergentBrands"
+                    :key="index"
+                    :value="brand"
+                  >
+                    {{ brand }}
+                  </option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="desc" class="form-label">Mô tả</label>
+                <textarea
+                  class="form-control"
+                  name="desc"
+                  id="desc"
+                  rows="3"
+                  v-model="product.desc"
+                ></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="quantity" class="form-label">Số lượng</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="quantity"
+                  id="quantity"
+                  aria-describedby="quantityID"
+                  v-model="product.quantity"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="price" class="form-label">Giá</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="price"
+                  id="price"
+                  aria-describedby="helpId"
+                  v-model="product.price"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="imageUrl" class="form-label">Chọn ảnh</label>
+                <input
+                  type="file"
+                  class="form-control"
+                  accept="image/*"
+                  name="imageUrl"
+                  id="imageUrl"
+                  placeholder=""
+                  aria-describedby="fileHelpId"
+                  required
+                  @change="(e) => handleImageChange(e)"
+                />
+                <div id="fileHelpId" class="form-text">Lưu ý ảnh không quá 20Mb</div>
                 <div
-                  class="progress-bar progress-bar-striped progress-bar-animated"
-                  style="width: 75%"
+                  v-show="progress > 0"
+                  class="progress"
+                  role="progressbar"
+                  aria-label="Animated striped example"
+                  :aria-valuenow="`${progress}`"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
                 >
-                  75%
+                  <div
+                    class="progress-bar progress-bar-striped progress-bar-animated"
+                    :style="`width: ${progress}%`"
+                  >
+                    {{ progress }}%
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <input
+                    v-if="product.imageUrl"
+                    type="text"
+                    class="form-control"
+                    name=""
+                    id=""
+                    aria-describedby="helpId"
+                    placeholder=""
+                    v-model="product.imageUrl"
+                    disabled
+                  />
                 </div>
               </div>
             </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-            <button type="button" class="btn btn-primary">
-              <div class="spinner-grow" v-if="loading" role="status">
-                <span class="visually-hidden">Loading...</span>
-              </div>
-              <span v-else>Lưu sản phẩm</span>
-            </button>
-          </div>
-        </form>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-info"
+                data-bs-dismiss="modal"
+                @click="$router.go()"
+              >
+                Refresh lại trang
+              </button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+              <button type="submit" class="btn btn-primary">
+                <div class="spinner-grow" v-if="loading" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <span v-else>Lưu sản phẩm</span>
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>

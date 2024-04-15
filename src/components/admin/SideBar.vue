@@ -54,16 +54,16 @@ const router = useRouter()
         </RouterLink>
       </li>
       <li>
-        <a
-          href="#"
+        <RouterLink
+          to="/admin/users"
           class="nav-link link-body-emphasis"
-          :class="{ active: router.currentRoute.value.path === '/admin/user' }"
+          :class="{ active: router.currentRoute.value.path === '/admin/users' }"
         >
           <svg class="bi pe-none me-2" width="16" height="16">
             <use xlink:href="#people-circle"></use>
           </svg>
           Người dùng
-        </a>
+        </RouterLink>
       </li>
     </ul>
     <hr />

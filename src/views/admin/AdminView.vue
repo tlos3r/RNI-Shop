@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watchEffect } from 'vue'
+import { ref, watchEffect, provide } from 'vue'
 import { query, where, getDocs, collection } from 'firebase/firestore'
 import { db } from '@/firebase'
 import AlertComponent from '@/components/AlertComponent.vue'
@@ -10,9 +10,12 @@ const user = ref({
   email: '',
   password: ''
 })
-const show = ref(false)
-const type = ref('')
-const msg = ref('')
+const alert = ref({
+  msg: '',
+  type: '',
+  show: false
+})
+provide('alert', alert)
 const router = useRouter()
 const { get, set } = useCookies(['auth'])
 
@@ -25,18 +28,18 @@ const loginAdmin = async () => {
   const q = query(collection(db, 'users'), where('email', '==', user.value.email))
   const querySnapshot = await getDocs(q)
   if (querySnapshot.empty) {
-    show.value = true
-    type.value = 'warning'
-    msg.value = 'Email hoặc mật khẩu không đúng !'
+    alert.value.show = true
+    alert.value.type = 'warning'
+    alert.value.msg = 'Email hoặc mật khẩu không đúng !'
   } else {
     querySnapshot.forEach((doc) => {
       if (doc.data().password === user.value.password && doc.data().role === 'ADMIN') {
         set('user', doc.data())
         router.push({ path: '/admin/dashboard' })
       } else {
-        show.value = true
-        type.value = 'warning'
-        msg.value = 'Email hoặc mật khẩu không đúng !'
+        alert.value.show = true
+        alert.value.type = 'warning'
+        alert.value.msg = 'Email hoặc mật khẩu không đúng !'
       }
     })
   }

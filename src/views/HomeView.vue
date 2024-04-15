@@ -21,5 +21,4 @@ import FormInfo from '../components/sliderheader/FormInfo.vue'
   <!-- <FooterPage /> -->
   <FormInfo />
 </template>
-
 <style scoped></style>

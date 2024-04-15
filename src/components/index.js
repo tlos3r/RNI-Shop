@@ -10,16 +10,30 @@ import ShowProduct from './sliderheader/ShowProduct.vue'
 import ContactSupport from './sliderheader/ContactSupport.vue'
 import FooterPage from './sliderheader/FooterPage.vue'
 import FormInfo from './sliderheader/FormInfo.vue'
-export { 
+
+import EditProduct from './admin/product/EditProduct.vue'
+import DeleteProduct from './admin/product/DeleteProduct.vue'
+import UserTable from './admin/user/UserTable.vue'
+import AddUser from './admin/user/AddUser.vue'
+import EditUser from './admin/user/EditUser.vue'
+import DeleteUser from './admin/user/DeleteUser.vue'
+
+export {
+    PageSliderHeader,
+    SlideAuto,
+    CrollingText,
+    ShowProduct,
+    ContactSupport,
+    FooterPage,
+    FormInfo,
     AlertComponent,
-       SideBar,
-       ProductTable,
-       AddProduct,
-       PageSliderHeader,
-       SlideAuto,
-       CrollingText,
-       ShowProduct,
-       ContactSupport,
-       FooterPage,
-       FormInfo
-     }
+    SideBar,
+    ProductTable,
+    AddProduct,
+    EditProduct,
+    DeleteProduct,
+    UserTable,
+    AddUser,
+    EditUser,
+    DeleteUser
+}
