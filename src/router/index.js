@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { AdminView, DashboardView, ProductView } from '@/views'
+import { AdminView, DashboardView, HomeView, ProductView, UserView } from '@/views'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -11,17 +11,27 @@ const router = createRouter({
     {
       path: '/admin',
       name: 'admin',
-      component: AdminView
-    },
-    {
-      path: '/admin/dashboard',
-      name: 'dashboard',
-      component: DashboardView
-    },
-    {
-      path: '/admin/products',
-      name: 'products',
-      component: ProductView
+      children: [
+        {
+          path: '',
+          component: AdminView
+        },
+        {
+          path: 'dashboard',
+          name: 'dashboard',
+          component: DashboardView
+        },
+        {
+          path: 'products',
+          name: 'products',
+          component: ProductView
+        },
+        {
+          path: 'users',
+          name: 'users',
+          component: UserView
+        }
+      ]
     }
   ]
 })
