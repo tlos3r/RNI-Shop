@@ -10,9 +10,10 @@ const loading = ref(false)
 onMounted(async () => {
   loading.value = true
   const { data } = await useFetchCollection('products')
+  console.log(data.value)
   loading.value = false
   store.storeProduct(data.value)
-  products.value = store.products
+  products.value = store.productsStore
 })
 </script>
 

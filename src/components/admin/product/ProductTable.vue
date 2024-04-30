@@ -33,6 +33,12 @@ const deleteProduct = async () => {
     loading.value = false
   }
 }
+function shortenText(text, n) {
+  if (text.length > n) {
+    return text.substring(0, n).concat('...')
+  }
+  return text
+}
 </script>
 
 <template>
@@ -77,7 +83,9 @@ const deleteProduct = async () => {
             </td>
             <td>{{ product.name }}</td>
             <td>{{ product.brand }}</td>
-            <td>{{ product.desc }}</td>
+            <td>
+              {{ shortenText(product.desc, 30) }}
+            </td>
             <td>{{ product.price }}</td>
             <td>{{ product.quantity }}</td>
             <td>

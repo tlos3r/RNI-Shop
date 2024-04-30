@@ -12,7 +12,7 @@ export default {
 }
 </script>
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid mt-5">
     <div class="row">
       <div class="col-12 col-md-3">
         <div class="footer-title">

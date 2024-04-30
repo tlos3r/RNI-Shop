@@ -11,8 +11,8 @@ import router from './router'
 import 'nice-forms.css'
 const app = createApp(App)
 
+app.use(firebaseApp)
 app.use(createPinia())
 app.use(router)
-app.use(firebaseApp)
 
 app.mount('#app')

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-fluid my-5">
     <div class="row">
       <div class="col-12">
         <div class="col-3" v-for="(texts, index) in texts" :key="index">

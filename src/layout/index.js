@@ -1,3 +1,3 @@
 import AdminLayout from './AdminLayout.vue'
-
-export { AdminLayout }
+import DefaultLayout from './DefaultLayout.vue'
+export { AdminLayout, DefaultLayout }
