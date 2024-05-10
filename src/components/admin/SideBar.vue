@@ -1,8 +1,14 @@
 <script setup>
 import { Icon } from '@iconify/vue'
+import { useStorage } from '@vueuse/core'
 import { useRouter, RouterLink } from 'vue-router'
 
 const router = useRouter()
+const userInfo = useStorage('user', sessionStorage)
+const logOut = () => {
+  userInfo.value = null
+  router.push({ path: '/admin' })
+}
 </script>
 
 <template>
@@ -21,27 +27,16 @@ const router = useRouter()
           Home
         </a>
       </li> -->
+
       <li>
         <RouterLink
-          to="#"
+          to="/admin/bills"
           class="nav-link link-body-emphasis"
-          :class="{ active: router.currentRoute.value.path === '/admin/dashboard' }"
+          :class="{ active: router.currentRoute.value.path === '/admin/bills' }"
         >
-          <Icon icon="material-symbols:home" width="1.2em" height="1.2em" class="mx-1" />
-          <span>Thống kê</span>
-        </RouterLink>
-      </li>
-      <li>
-        <a
-          href="#"
-          class="nav-link link-body-emphasis"
-          :class="{ active: router.currentRoute.value.path === '/admin/order' }"
-        >
-          <svg class="bi pe-none me-2" width="16" height="16">
-            <use xlink:href="#table"></use>
-          </svg>
+          <Icon icon="solar:bill-list-outline" width="1.2em" height="1.2em" class="mx-1" />
           Đặt hàng
-        </a>
+        </RouterLink>
       </li>
       <li>
         <RouterLink
@@ -49,7 +44,7 @@ const router = useRouter()
           class="nav-link link-body-emphasis"
           :class="{ active: router.currentRoute.value.path === '/admin/products' }"
         >
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+          <Icon icon="ant-design:product-outlined" width="1.2em" height="1.2em" class="mx-1" />
           Sản phẩm
         </RouterLink>
       </li>
@@ -59,9 +54,7 @@ const router = useRouter()
           class="nav-link link-body-emphasis"
           :class="{ active: router.currentRoute.value.path === '/admin/users' }"
         >
-          <svg class="bi pe-none me-2" width="16" height="16">
-            <use xlink:href="#people-circle"></use>
-          </svg>
+          <Icon icon="mingcute:user-4-line" width="1.2em" height="1.2em" class="mx-1" />
           Người dùng
         </RouterLink>
       </li>
@@ -74,21 +67,11 @@ const router = useRouter()
         data-bs-toggle="dropdown"
         aria-expanded="false"
       >
-        <img
-          src="https://github.com/mdo.png"
-          alt=""
-          width="32"
-          height="32"
-          class="rounded-circle me-2"
-        />
-        <strong>Admin 1</strong>
+        <Icon icon="fa-regular:user" width="32" height="32" class="me-2" />
+        <strong>{{ `${userInfo.username} (${userInfo.role})` }}</strong>
       </a>
       <ul class="dropdown-menu text-small shadow">
-        <li><a class="dropdown-item" href="#">New project...</a></li>
-        <li><a class="dropdown-item" href="#">Settings</a></li>
-        <li><a class="dropdown-item" href="#">Profile</a></li>
-        <li><hr class="dropdown-divider" /></li>
-        <li><a class="dropdown-item" href="#">Sign out</a></li>
+        <li><a class="dropdown-item" @click="logOut">Đăng xuất</a></li>
       </ul>
     </div>
   </div>

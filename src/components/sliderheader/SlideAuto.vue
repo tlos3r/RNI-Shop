@@ -84,9 +84,9 @@ export default {
     return {
       products: [
         {
-          title: 'Điện Máy Xanh',
-          text: 'Price 25$ Titanium',
-          src: 'https://e-techno-electronic.myshopify.com/cdn/shop/files/L01-offer-02_8cfd4436-0a68-48bc-8b2e-7bde627cfada.png?v=1710130140&width=1920'
+          title: 'Nước Xả Vải Blue Hàn Quốc ',
+          text: '145000 VND',
+          src: 'https://firebasestorage.googleapis.com/v0/b/morcell-product-shop.appspot.com/o/images%2F1714117308091vn-11134207-7qukw-lf80ekkp9fnud1.jpg?alt=media&token=77f536c1-02e1-43d5-a6b3-96a53eb2da25'
         },
         {
           title: 'Điện Máy Xanh',

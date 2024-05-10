@@ -9,7 +9,8 @@ import {
   NotFound,
   ProductUserView,
   ProductDetailView,
-  UserCart
+  UserCart,
+  BillView
 } from '@/views'
 import ProductView from '@/views/admin/ProductView.vue'
 const router = createRouter({
@@ -43,6 +44,11 @@ const router = createRouter({
           path: 'users',
           name: 'users',
           component: UserView
+        },
+        {
+          path: 'bills',
+          name: 'bills',
+          component: BillView
         }
       ]
     },

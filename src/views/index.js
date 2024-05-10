@@ -10,7 +10,7 @@ import ProductUserView from './user/ProductUserView.vue'
 import ProductDetailView from './user/ProductDetailView.vue'
 import UserCart from './user/UserCart.vue'
 import AddressForm from './user/AddressForm.vue'
-
+import BillView from './admin/BillView.vue'
 export {
   AdminView,
   DashboardView,
@@ -23,5 +23,6 @@ export {
   ProductUserView,
   ProductDetailView,
   UserCart,
-  AddressForm
+  AddressForm,
+  BillView
 }

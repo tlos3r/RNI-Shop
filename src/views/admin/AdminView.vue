@@ -4,7 +4,7 @@ import { query, where, getDocs, collection } from 'firebase/firestore'
 import { db } from '@/firebase'
 import AlertComponent from '@/components/AlertComponent.vue'
 import { useRouter } from 'vue-router'
-import { useCookies } from '@vueuse/integrations/useCookies'
+import { useStorage } from '@vueuse/core'
 
 const user = ref({
   email: '',
@@ -17,8 +17,7 @@ const alert = ref({
 })
 provide('alert', alert)
 const router = useRouter()
-const { get, set } = useCookies(['auth'])
-
+const userInfo = useStorage('user', {})
 /**
  * Hàm đăng nhập vào trang quản trị.
  *
@@ -34,8 +33,8 @@ const loginAdmin = async () => {
   } else {
     querySnapshot.forEach((doc) => {
       if (doc.data().password === user.value.password && doc.data().role === 'ADMIN') {
-        set('user', doc.data())
-        router.push({ path: '/admin/dashboard' })
+        userInfo.value = doc.data()
+        router.push({ path: '/admin/dashboard/bills' })
       } else {
         alert.value.show = true
         alert.value.type = 'warning'
@@ -44,12 +43,9 @@ const loginAdmin = async () => {
     })
   }
 }
-
 watchEffect(() => {
-  if (get('user')) {
-    if (get('user').role !== 'ADMIN') {
-      router.push({ path: '/' })
-    } else router.push({ path: '/admin/dashboard' })
+  if (userInfo.value.role === 'ADMIN') {
+    router.push({ name: 'bills' })
   }
 })
 </script>
