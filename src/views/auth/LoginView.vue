@@ -1,6 +1,6 @@
 <script setup>
 import { Icon } from '@iconify/vue'
-import { ref, provide, watchEffect } from 'vue'
+import { ref, provide } from 'vue'
 import { collection, query, where, getDocs } from 'firebase/firestore'
 import { db } from '@/firebase'
 import { AlertComponent } from '@/components'
@@ -19,6 +19,7 @@ const alert = ref({
   show: false
 })
 const userInfo = useStorage('user', {})
+
 provide('alert', alert)
 const login = async () => {
   const q = query(collection(db, 'users'), where('email', '==', loginInfo.value.email))
@@ -43,11 +44,6 @@ const login = async () => {
     }
   }
 }
-watchEffect(() => {
-  if (userInfo.value.username) {
-    router.push({ path: '/' })
-  }
-})
 </script>
 
 <template>
@@ -95,7 +91,8 @@ watchEffect(() => {
     <hr class="my-3" />
     <p class="text-center fs-5">
       Bạn chưa có tài khoản ?
-      <RouterLink class="link-primary" to="/auth/register">Đăng ký</RouterLink>
+      <RouterLink class="link-primary" to="/auth/register">Đăng ký</RouterLink> hoặc là
+      <RouterLink class="link-primary" to="/">quay về trang chủ</RouterLink>
     </p>
   </form>
 </template>

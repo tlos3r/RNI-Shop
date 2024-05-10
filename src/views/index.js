@@ -8,6 +8,9 @@ import RegisterView from './auth/RegisterView.vue'
 import NotFound from './NotFound.vue'
 import ProductUserView from './user/ProductUserView.vue'
 import ProductDetailView from './user/ProductDetailView.vue'
+import UserCart from './user/UserCart.vue'
+import AddressForm from './user/AddressForm.vue'
+
 export {
   AdminView,
   DashboardView,
@@ -18,5 +21,7 @@ export {
   RegisterView,
   NotFound,
   ProductUserView,
-  ProductDetailView
+  ProductDetailView,
+  UserCart,
+  AddressForm
 }

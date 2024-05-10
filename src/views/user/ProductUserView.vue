@@ -2,8 +2,10 @@
 import { useFetchCollection } from '@/composable'
 import { DefaultLayout } from '@/layout'
 import { useProductStore } from '@/stores/product'
+import { useCartStore } from '@/stores/cart'
 import { onMounted, ref, watch, toRaw } from 'vue'
 const store = useProductStore()
+const cartStore = useCartStore()
 const loading = ref(false)
 onMounted(async () => {
   loading.value = true
@@ -21,6 +23,9 @@ function shortenText(text, n) {
 }
 const sortType = ref('')
 
+const handleAddProduct = (product) => {
+  cartStore.addToCart(product)
+}
 watch(
   sortType,
   () => {
@@ -49,7 +54,7 @@ watch(
       </div>
       <div class="row">
         <div v-for="product in store.productsStore" :key="product.id" class="col-12 col-md-3">
-          <div class="d-flex justify-content-center align-items-center flex-column gap-2">
+          <div class="d-flex justify-content-center align-items-center flex-column gap-2 m-4">
             <RouterLink :to="`/products/${product.id}`">
               <img :src="product.imageUrl" class="img-thumbnail" alt="" />
             </RouterLink>
@@ -60,7 +65,9 @@ watch(
               >{{ shortenText(product.name, 20) }}</RouterLink
             >
             <p>{{ `${product.price} VNĐ` }}</p>
-            <button class="w-100 btn btn-primary">Thêm vào giỏ</button>
+            <button class="w-100 btn btn-primary" @click="handleAddProduct(toRaw(product))">
+              Thêm vào giỏ
+            </button>
           </div>
         </div>
       </div>

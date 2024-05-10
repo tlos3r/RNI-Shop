@@ -8,7 +8,8 @@ import {
   RegisterView,
   NotFound,
   ProductUserView,
-  ProductDetailView
+  ProductDetailView,
+  UserCart
 } from '@/views'
 import ProductView from '@/views/admin/ProductView.vue'
 const router = createRouter({
@@ -80,6 +81,11 @@ const router = createRouter({
           component: ProductDetailView
         }
       ]
+    },
+    {
+      path: '/cart',
+      name: 'cart',
+      component: UserCart
     }
   ]
 })

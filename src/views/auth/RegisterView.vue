@@ -4,8 +4,8 @@ import { Icon } from '@iconify/vue'
 import { ref, provide, watchEffect } from 'vue'
 import { Timestamp } from 'firebase/firestore'
 import AlertComponent from '@/components/AlertComponent.vue'
-import { useCookies } from '@vueuse/integrations/useCookies'
 import { useRouter } from 'vue-router'
+import { useStorage } from '@vueuse/core'
 
 const comfirmPasswordInput = ref(null)
 const passwordInput = ref(null)
@@ -39,9 +39,9 @@ const register = async () => {
   }
 }
 const router = useRouter()
-const { get } = useCookies(['auth'])
+const userInfo = useStorage('user', sessionStorage)
 watchEffect(() => {
-  if (get('user')) {
+  if (userInfo.value.username) {
     router.push({ path: '/' })
   }
 })

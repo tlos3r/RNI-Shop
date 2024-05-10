@@ -1,18 +1,15 @@
 <script setup>
 import { onMounted, ref } from 'vue'
-import { ProductTable } from '@/components'
+import { BillTable } from '@/components'
 import { AdminLayout } from '@/layout'
 import { useFetchCollection } from '@/composable/fetchCollection'
-import { useProductStore } from '@/stores/product'
-const products = ref()
-const store = useProductStore()
+const bill = ref()
 const loading = ref(false)
 onMounted(async () => {
   loading.value = true
   const { data } = await useFetchCollection('products')
   console.log(data.value)
-  store.storeProduct(data.value)
-  products.value = data.value
+  bill.value = data.value
   loading.value = false
 })
 </script>
@@ -28,7 +25,7 @@ onMounted(async () => {
           <span class="visually-hidden">Loading...</span>
         </div>
       </div>
-      <ProductTable v-else :data="store.productsStore" />
+      <BillTable v-else :data="bill" />
     </div>
   </AdminLayout>
 </template>

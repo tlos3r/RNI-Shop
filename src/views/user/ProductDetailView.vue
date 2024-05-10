@@ -1,23 +1,30 @@
 <script setup>
 import { DefaultLayout } from '@/layout'
-import { ref, onBeforeMount } from 'vue'
+import { ref, onBeforeMount, toRaw } from 'vue'
 import { useRoute } from 'vue-router'
 import { useDetailData } from '@/composable'
+// import { useStorage } from '@vueuse/core'
+import { useCartStore } from '@/stores/cart'
 const route = useRoute()
 const id = route.params.id
 const product = ref()
-const total = ref(1)
+// const cartStorage = useStorage('cart', sessionStorage)
+const cartStore = useCartStore()
+// const cartIndex = cartStorage.value.findIndex((item) => item.id === id)
 onBeforeMount(async () => {
   const { data } = await useDetailData('products', id)
-  console.log(data)
-  product.value = data
+  console.log({ ...data, id })
+  product.value = { ...data, id }
 })
+const handleAddProduct = (productTemp) => {
+  cartStore.addToCart(toRaw(productTemp))
+  // console.log(product)
+}
 </script>
 
 <template>
   <DefaultLayout>
-    <h1 class="pt-5 text-center fw-bold">Toàn bộ sản phẩm hiện có</h1>
-
+    {{ product.id }}
     <div class="container py-5">
       <div class="row">
         <div class="col-12 col-md-5">
@@ -28,13 +35,10 @@ onBeforeMount(async () => {
           <h1>{{ product.name }}</h1>
           <p>{{ product.desc }}</p>
           <h3 class="fw-bold">{{ `${product.price} VND` }}</h3>
-          <div class="d-flex gap-2">
-            <button class="btn btn-secondary" @click="total--" :disabled="total === 1">-</button>
-            <input v-model="total" type="text" class="form-control w-25 fw-bold" readonly />
-            <button class="btn btn-secondary" @click="total++">+</button>
-          </div>
 
-          <button class="btn btn-primary btn-lg mt-2">Thêm vào giỏ</button>
+          <button class="btn btn-primary btn-lg mt-2" @click="handleAddProduct(product)">
+            Thêm vào giỏ
+          </button>
         </div>
       </div>
     </div>

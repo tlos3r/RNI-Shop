@@ -1,10 +1,12 @@
 <script setup>
 import { useStorage } from '@vueuse/core'
-
+import { useRouter } from 'vue-router'
 const userInfo = useStorage('user', { mergeDefaults: true })
 const signOut = () => {
   userInfo.value = null
 }
+const cart = useStorage('cart', sessionStorage)
+const router = useRouter()
 </script>
 
 <template>
@@ -44,16 +46,16 @@ const signOut = () => {
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Xin chào, {{ userInfo.username }} !
+            Xin chào, {{ userInfo.username || 'khách' }} !
           </button>
           <ul class="dropdown-menu">
             <li>
-              <a class="dropdown-item" href="#">
+              <a @click="router.push({ name: 'cart' })" class="dropdown-item" href="#">
                 Giỏ hàng
-                <span class="badge text-bg-secondary">4</span>
+                <span v-if="cart.length" class="badge text-bg-secondary">{{ cart.length }}</span>
               </a>
             </li>
-            <li @click="signOut"><a class="dropdown-item" href="#">Đăng xuất</a></li>
+            <li @click.prevent="signOut"><a class="dropdown-item" href="#">Đăng xuất</a></li>
           </ul>
         </div>
         <div v-else class="d-flex gap-3">

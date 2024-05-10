@@ -18,6 +18,8 @@ import AddUser from './admin/user/AddUser.vue'
 import EditUser from './admin/user/EditUser.vue'
 import DeleteUser from './admin/user/DeleteUser.vue'
 
+import BillTable from './admin/bill/BillTable.vue'
+
 export {
   PageSliderHeader,
   SlideAuto,
@@ -36,5 +38,6 @@ export {
   AddUser,
   EditUser,
   DeleteUser,
-  HeaderComponent
+  HeaderComponent,
+  BillTable
 }
