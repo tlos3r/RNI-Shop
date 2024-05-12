@@ -13,6 +13,7 @@ import {
   BillView
 } from '@/views'
 import ProductView from '@/views/admin/ProductView.vue'
+import PrivacyView from '@/views/PrivacyView.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -92,6 +93,11 @@ const router = createRouter({
       path: '/cart',
       name: 'cart',
       component: UserCart
+    },
+    {
+      path: '/privacy',
+      name: 'privacy',
+      component: PrivacyView
     }
   ]
 })

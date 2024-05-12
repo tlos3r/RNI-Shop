@@ -10,9 +10,8 @@ const marqueefyInstances = marqueefyList.map((m) => {
   <div class="container-fluid my-5">
     <div class="marqueefy w-100 bg-light-subtle" data-mq-speed="50" tabindex="0">
       <div class="content fs-3">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam doloremque velit asperiores.
-        Necessitatibus asperiores dolorum, pariatur distinctio suscipit fugit et nihil consequuntur
-        mollitia, quo deleniti omnis odit cum illum modi!
+        RNI Shop - uy tín tạo nên thương hiệu của chúng tôi . Giảm 20% cho khách hàng mua nhiều tại
+        RNI Shop
       </div>
     </div>
   </div>

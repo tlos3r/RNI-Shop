@@ -89,9 +89,14 @@ export default {
           src: 'https://firebasestorage.googleapis.com/v0/b/morcell-product-shop.appspot.com/o/images%2F1714117308091vn-11134207-7qukw-lf80ekkp9fnud1.jpg?alt=media&token=77f536c1-02e1-43d5-a6b3-96a53eb2da25'
         },
         {
-          title: 'Điện Máy Xanh',
-          text: 'Price 25$ Titanium',
-          src: 'https://e-techno-electronic.myshopify.com/cdn/shop/files/L01-offer-02_8cfd4436-0a68-48bc-8b2e-7bde627cfada.png?v=1710130140&width=1920'
+          title: 'Bột Tẩy Lồng Máy Giặt Hàn Quốc',
+          text: '100000 VND',
+          src: 'https://firebasestorage.googleapis.com/v0/b/morcell-product-shop.appspot.com/o/images%2F1714117092529vn-11134207-7r98o-ls2vpupqhkn801.jpg?alt=media&token=79ff54da-26b6-4b51-ba0f-ad676fbc5786'
+        },
+        {
+          title: 'Nước Giặt Be Clean 3600ML',
+          text: '98 VND',
+          src: 'https://firebasestorage.googleapis.com/v0/b/morcell-product-shop.appspot.com/o/images%2F1714117429256vn-11134207-7qukw-lkhxt600sn1k39.jpg?alt=media&token=b1594cd2-02d9-4a2d-a78a-a73fc1c21ece'
         },
         {
           title: 'Điện Máy Xanh',
@@ -99,16 +104,16 @@ export default {
           src: 'https://e-techno-electronic.myshopify.com/cdn/shop/files/L01-offer-02_8cfd4436-0a68-48bc-8b2e-7bde627cfada.png?v=1710130140&width=1920'
         },
         {
-          title: 'Điện Máy Xanh',
-          text: 'Price 25$ Titanium',
-          src: 'https://e-techno-electronic.myshopify.com/cdn/shop/files/L01-offer-02_8cfd4436-0a68-48bc-8b2e-7bde627cfada.png?v=1710130140&width=1920'
-        },
-        {
-          title: 'Điện Máy Xanh',
-          text: 'Price 25$ Titanium',
-          src: 'https://e-techno-electronic.myshopify.com/cdn/shop/files/L01-offer-02_8cfd4436-0a68-48bc-8b2e-7bde627cfada.png?v=1710130140&width=1920'
+          title: 'Viên Giặt Xả Muối Hồng Himalaya Chính hãng',
+          text: '149000 VND',
+          src: 'https://firebasestorage.googleapis.com/v0/b/morcell-product-shop.appspot.com/o/images%2F1714118002486vn-11134201-23020-464pdd280wnv59.jpg?alt=media&token=526ff143-8dc2-4e0b-9032-f45acf4df4fe'
         }
       ]
+    }
+  },
+  methods: {
+    redirecTo(path) {
+      this.$router.push(path)
     }
   }
 }

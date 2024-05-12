@@ -24,23 +24,23 @@ export default {
       texts: [
         {
           icon: 'gridicons:shipping',
-          title: 'Free Shipping $ Return',
-          p: 'Shop with confidence and have your favorite electionics delivered right to your doorstep without any additional cost.'
+          title: 'Miễn phí đưa hàng và trả hàng',
+          p: 'Khách hàng không tốn 1 tý phí nào liên quan đến giao hàng và trả lại hàng.'
         },
         {
           icon: 'ri:service-line',
-          title: 'Money Back Guarantee',
-          p: 'We guarantee to rectufy any unstisfactory expenrience you may have with your purchase. No queries posed.'
+          title: 'Hoàn trả không phí',
+          p: 'Hoàn trả liên tục với khoảng cách điều chỉnh, điều chỉnh và điều chỉnh.'
         },
         {
           icon: 'fluent:person-support-16-regular',
-          title: 'Online Support 24/7 ',
-          p: 'Need help with your electrics? Get in touch with us anytime, anywhere and let get your tech sorted.'
+          title: 'Hỗ trợ 24/7 ',
+          p: 'Cần hỗ trợ phải không ? Chúng tôi luôn hỗ trợ bạn 24/7'
         },
         {
           icon: 'solar:sale-linear',
-          title: 'Regular Sales',
-          p: 'Dont miss out on our amazing deals with regular sales on our top-of-the-line home decor furniture.'
+          title: 'Luôn luôn có chính sách giảm giá',
+          p: 'Đừng quên luôn luôn có những đợt giảm giá liên tục trên RNI Shop.'
         }
       ]
     }
