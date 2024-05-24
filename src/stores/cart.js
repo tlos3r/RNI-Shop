@@ -6,6 +6,7 @@ export const useCartStore = defineStore('cart', () => {
   const cart = useLocalStorage('cart', [], { mergeDefaults: true })
   const cartTotalAmount = ref(0)
   function addToCart(product) {
+    // const productIndex = cart.value.findIndex((item) => item.id === product.id)
     const productIndex = cart.value.findIndex((item) => item.id === product.id)
     if (productIndex >= 0) {
       cart.value[productIndex].buyCount += 1

@@ -25,7 +25,7 @@ const emit = defineEmits(['delete'])
     class="btn btn-danger"
     data-bs-toggle="modal"
     data-bs-target="#deleteUserModal"
-    :disabled="props.index <= 0"
+    :disabled="index <= 0"
   >
     <Icon icon="material-symbols:delete-outline" />
     Xóa

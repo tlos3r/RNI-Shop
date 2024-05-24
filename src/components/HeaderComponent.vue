@@ -1,9 +1,11 @@
 <script setup>
 import { useStorage } from '@vueuse/core'
 import { useRouter } from 'vue-router'
-const userInfo = useStorage('user', { mergeDefaults: true })
+import { toast } from 'vue3-toastify'
+const userInfo = useStorage('user', sessionStorage)
 const signOut = () => {
   userInfo.value = null
+  toast.success('Đăng xuất thành công !')
 }
 const cart = useStorage('cart', sessionStorage)
 const router = useRouter()
@@ -39,14 +41,14 @@ const router = useRouter()
           </li>
         </ul>
 
-        <div v-if="userInfo" class="dropdown px-md-3">
+        <div v-if="userInfo && userInfo.username" class="dropdown px-md-3">
           <button
             class="btn btn-light dropdown-toggle"
             type="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Xin chào, {{ userInfo.username || 'khách' }} !
+            Xin chào, {{ userInfo.username }} !
           </button>
           <ul class="dropdown-menu">
             <li>
