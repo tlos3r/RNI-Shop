@@ -25,7 +25,16 @@ watchEffect(() => {
   <DefaultLayout>
     <div class="container">
       <h2 class="mb-3 text-primary">Giỏ hàng</h2>
-      <div class="table-responsive">
+      <button
+        v-if="cartStorage.length > 0"
+        @click="cartStore.clearCart()"
+        type="button"
+        class="btn btn-danger fw-bold text-white"
+      >
+        Xoá toàn bộ giỏ hàng
+      </button>
+      <h4 v-if="cartStorage.length <= 0" class="text-center">Bạn chưa cho gì vào giỏ hàng</h4>
+      <div v-else class="table-responsive">
         <table class="table table-striped table-hover">
           <thead>
             <tr>

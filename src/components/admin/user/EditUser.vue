@@ -35,7 +35,7 @@ const editUser = async () => {
   }
 }
 onMounted(() => {
-  user.value = props.data
+  user.value.username = props.data.username
 })
 </script>
 

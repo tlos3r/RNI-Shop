@@ -41,6 +41,8 @@ const handleSubmitInfo = async () => {
     customerInfo.value.address = ''
     customerInfo.value.name = ''
     customerInfo.value.phone = 0
+    cartStorage.value = []
+    cartStore.clearCart()
   } else {
     loading.value = false
     toast.error('Có lỗi gì đó đã xảy ra !')

@@ -99,9 +99,9 @@ export default {
           src: 'https://firebasestorage.googleapis.com/v0/b/morcell-product-shop.appspot.com/o/images%2F1714117429256vn-11134207-7qukw-lkhxt600sn1k39.jpg?alt=media&token=b1594cd2-02d9-4a2d-a78a-a73fc1c21ece'
         },
         {
-          title: 'Điện Máy Xanh',
-          text: 'Price 25$ Titanium',
-          src: 'https://e-techno-electronic.myshopify.com/cdn/shop/files/L01-offer-02_8cfd4436-0a68-48bc-8b2e-7bde627cfada.png?v=1710130140&width=1920'
+          title: 'Nước giặt Hàn Quốc',
+          text: '100000 VNĐ',
+          src: 'https://firebasestorage.googleapis.com/v0/b/morcell-product-shop.appspot.com/o/images%2F1715532678498ncgiat3600.jpg?alt=media&token=368138ab-7c94-419d-97d2-b048dfcfdde9'
         },
         {
           title: 'Viên Giặt Xả Muối Hồng Himalaya Chính hãng',

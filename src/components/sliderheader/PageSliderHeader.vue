@@ -12,8 +12,8 @@ export default {
 
 <template>
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-8">
+    <div class="row d-flex justify-content-center">
+      <div class="col-10">
         <div id="carouselExampleIndicators" class="carousel slide">
           <div class="carousel-indicators">
             <button
@@ -77,18 +77,6 @@ export default {
           </button>
         </div>
       </div>
-      <div class="col-3">
-        <div class="btn-1">
-          <button class="btn-item"></button>
-          <button class="btn-item"></button>
-          <button class="btn-item"></button>
-        </div>
-        <div class="btn-2">
-          <button class="btn-item"></button>
-          <button class="btn-item"></button>
-          <button class="btn-item"></button>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -148,7 +136,7 @@ export default {
   transition: 0.5s;
 }
 .c-item {
-  height: 500px;
+  height: 700px;
   border-radius: 10px;
 }
 .c-img {

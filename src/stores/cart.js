@@ -3,7 +3,7 @@ import { useLocalStorage } from '@vueuse/core'
 import { toast } from 'vue3-toastify'
 import { ref } from 'vue'
 export const useCartStore = defineStore('cart', () => {
-  const cart = useLocalStorage('cart', [], { mergeDefaults: true })
+  const cart = useLocalStorage('cart', [])
   const cartTotalAmount = ref(0)
   function addToCart(product) {
     // const productIndex = cart.value.findIndex((item) => item.id === product.id)
@@ -48,6 +48,7 @@ export const useCartStore = defineStore('cart', () => {
   }
   function clearCart() {
     cart.value = []
+    toast.success(`Xoá toàn bộ giỏ hàng thành công`)
   }
 
   return {
