@@ -4,6 +4,8 @@ import { DefaultLayout } from '@/layout'
 import { useProductStore } from '@/stores/product'
 import { useCartStore } from '@/stores/cart'
 import { onMounted, ref, watch, toRaw } from 'vue'
+import { useStorage } from '@vueuse/core'
+import { useRouter } from 'vue-router'
 const store = useProductStore()
 const cartStore = useCartStore()
 const loading = ref(false)
@@ -22,9 +24,13 @@ function shortenText(text, n) {
   return text
 }
 const sortType = ref('')
+const userInfo = useStorage('user', sessionStorage)
+const router = useRouter()
 
 const handleAddProduct = (product) => {
-  cartStore.addToCart(product)
+  if (!userInfo.value.username) {
+    router.push({ path: '/auth/login' })
+  } else cartStore.addToCart(product)
 }
 watch(
   sortType,

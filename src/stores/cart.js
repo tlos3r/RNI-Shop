@@ -1,9 +1,8 @@
 import { defineStore, acceptHMRUpdate } from 'pinia'
-import { useLocalStorage } from '@vueuse/core'
 import { toast } from 'vue3-toastify'
 import { ref } from 'vue'
 export const useCartStore = defineStore('cart', () => {
-  const cart = useLocalStorage('cart', [])
+  const cart = ref([])
   const cartTotalAmount = ref(0)
   function addToCart(product) {
     // const productIndex = cart.value.findIndex((item) => item.id === product.id)
