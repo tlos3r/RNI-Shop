@@ -41,14 +41,19 @@ onMounted(() => {
 
 <template>
   <!-- Button trigger modal -->
-  <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editUserId">
+  <button
+    type="button"
+    class="btn btn-success"
+    data-bs-toggle="modal"
+    :data-bs-target="`#${data.id}`"
+  >
     <Icon icon="lucide:edit" width="1.5em" height="1.5em" style="color: white" />
   </button>
 
   <!-- Modal -->
   <div
     class="modal fade"
-    id="editUserId"
+    :id="data.id"
     tabindex="-1"
     role="dialog"
     aria-labelledby="editTitleId"
