@@ -5,11 +5,10 @@ import { useStorage } from '@vueuse/core'
 import { watch, watchEffect } from 'vue'
 import { AddressForm } from '@/views'
 import { useRouter } from 'vue-router'
-const cartStorage = useStorage('cart', sessionStorage)
 const cartStore = useCartStore()
 // const total = cartStore.c
 cartStore.calculateTotal()
-watch(cartStorage, () => {
+watch(cartStore, () => {
   cartStore.calculateTotal()
 })
 const router = useRouter()
@@ -26,14 +25,14 @@ watchEffect(() => {
     <div class="container">
       <h2 class="mb-3 text-primary">Giỏ hàng</h2>
       <button
-        v-if="cartStorage.length > 0"
+        v-if="cartStore.cart.length > 0"
         @click="cartStore.clearCart()"
         type="button"
         class="btn btn-danger fw-bold text-white"
       >
         Xoá toàn bộ giỏ hàng
       </button>
-      <h4 v-if="cartStorage.length <= 0" class="text-center">Bạn chưa cho gì vào giỏ hàng</h4>
+      <h4 v-if="cartStore.cart.length <= 0" class="text-center">Bạn chưa cho gì vào giỏ hàng</h4>
       <div v-else class="table-responsive">
         <table class="table table-striped table-hover">
           <thead>
@@ -45,7 +44,7 @@ watchEffect(() => {
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(item, index) in cartStorage" :key="item.id">
+            <tr v-for="(item, index) in cartStore.cart" :key="item.id">
               <th scope="row">{{ index + 1 }}</th>
               <td>{{ item.name }}</td>
               <td>{{ item.buyCount }}</td>

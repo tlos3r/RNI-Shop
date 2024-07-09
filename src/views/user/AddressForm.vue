@@ -6,10 +6,9 @@ import { useRouter } from 'vue-router'
 import { useAddData } from '@/composable'
 import { Timestamp } from 'firebase/firestore'
 import { toast } from 'vue3-toastify'
-const cartStorage = useStorage('cart', sessionStorage)
 const cartStore = useCartStore()
 cartStore.calculateTotal()
-watch(cartStorage, () => {
+watch(cartStore, () => {
   cartStore.calculateTotal()
 })
 const router = useRouter()
@@ -28,8 +27,10 @@ const loading = ref(false)
 const handleSubmitInfo = async () => {
   loading.value = true
   const { docRef } = await useAddData('bills', {
-    ...customerInfo.value,
-    products: cartStorage.value,
+    name: customerInfo.value.name,
+    phone: customerInfo.value.phone,
+    address: customerInfo.value.address,
+    products: cartStore.cart,
     total: cartStore.cartTotalAmount,
     createdAt: Timestamp.now().toDate()
   })
@@ -41,7 +42,6 @@ const handleSubmitInfo = async () => {
     customerInfo.value.address = ''
     customerInfo.value.name = ''
     customerInfo.value.phone = 0
-    cartStorage.value = []
     cartStore.clearCart()
   } else {
     loading.value = false

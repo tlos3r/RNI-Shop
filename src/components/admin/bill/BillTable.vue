@@ -28,7 +28,7 @@ defineProps({
           <tr v-for="(bill, index) in data" :key="index">
             <td scope="row">{{ index + 1 }}</td>
             <td scope="row">{{ bill.name }}</td>
-            <td>{{ bill.name }}</td>
+            <td>{{ bill.address }}</td>
             <td>{{ bill.phone }}</td>
             <td>
               <ul class="list-group list-group-flush">
