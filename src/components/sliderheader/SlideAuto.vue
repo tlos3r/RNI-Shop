@@ -95,7 +95,7 @@ export default {
         },
         {
           title: 'Nước Giặt Be Clean 3600ML',
-          text: '98 VND',
+          text: '160000 VND',
           src: 'https://firebasestorage.googleapis.com/v0/b/morcell-product-shop.appspot.com/o/images%2F1714117429256vn-11134207-7qukw-lkhxt600sn1k39.jpg?alt=media&token=b1594cd2-02d9-4a2d-a78a-a73fc1c21ece'
         },
         {

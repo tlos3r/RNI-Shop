@@ -3,9 +3,23 @@ import { ref } from 'vue'
 
 export const useProductStore = defineStore('product', () => {
   const productsStore = ref([])
+  const filterProducts = ref([])
 
   function storeProduct(data) {
     productsStore.value = data
+    filterProducts.value = data
+  }
+  function searchProduct(search) {
+    if (search === '') {
+      filterProducts.value = productsStore.value
+      return
+    }
+
+    const tempProducts = productsStore.value.filter((product) =>
+      product.name.toLowerCase().includes(search.toLowerCase())
+    )
+
+    filterProducts.value = tempProducts
   }
 
   function sortProduct(products, sort) {
@@ -29,10 +43,10 @@ export const useProductStore = defineStore('product', () => {
         return b.name.localeCompare(a.name)
       })
     }
-    productsStore.value = tempProducts
-    return productsStore.value
+    filterProducts.value = tempProducts
+    return filterProducts.value
   }
-  return { productsStore, storeProduct, sortProduct }
+  return { productsStore, filterProducts, storeProduct, sortProduct, searchProduct }
 })
 
 if (import.meta.hot) {

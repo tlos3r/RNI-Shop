@@ -12,7 +12,7 @@ export default {
 
 <template>
   <div class="container-fluid">
-    <div class="row d-flex justify-content-center">
+    <!-- <div class="row d-flex justify-content-center">
       <div class="col-10">
         <div id="carouselExampleIndicators" class="carousel slide">
           <div class="carousel-indicators">
@@ -76,6 +76,54 @@ export default {
             <span class="visually-hidden">Next</span>
           </button>
         </div>
+      </div>
+    </div> -->
+    <div class="container-fluid">
+      <div id="carouselExampleAutoplaying" class="carousel slide h-25" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img
+              src="https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lpq1cayik1uc1b"
+              class="d-block w-100"
+              alt="..."
+              style="height: 700px"
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lky13tp1ayfxcb"
+              class="d-block w-100"
+              alt="..."
+              style="height: 700px"
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lpq1cayjez0913"
+              class="d-block w-100"
+              alt="..."
+              style="height: 700px"
+            />
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleAutoplaying"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleAutoplaying"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
       </div>
     </div>
   </div>
